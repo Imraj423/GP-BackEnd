@@ -2,7 +2,7 @@ from ghostpost import models
 from rest_framework import serializers
 
 
-class GhostPost_Serializer(serializers.HyperlinkedModelSerializer):
+class GhostPost_Serializer(serializers.ModelSerializer):
     class Meta:
         model = models.ghostPost
-        fields = ['message', 'time', 'is_Boast', 'upvote', 'downvote']
+        fields = ['id','message', 'time', 'is_Boast', 'upvote', 'downvote', 'total_count']
