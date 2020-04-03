@@ -3,6 +3,8 @@ from rest_framework import viewsets, permissions
 from ghostpost import models, serializers
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.forms import model_to_dict
+
 
 
 class GhostPost_view(viewsets.ModelViewSet):
@@ -27,4 +29,13 @@ class GhostPost_view(viewsets.ModelViewSet):
         downvote.save()
         return Response({'status': 'Shade!'})
 
-# gotta get upvote and downvote to show on front end and total_count
+    @action(detail=True, methods=['delete'])
+    def remove(self, request, pk=None):
+        post_res = None
+        try:
+            post = ghostPost.objects.get(secret_id=pk)
+            post_res = model_to_dict(post)['id']
+            post.delete()
+        except Exception as e:
+            return Response({'error': f"{e}"})
+        return Response({post_res})
