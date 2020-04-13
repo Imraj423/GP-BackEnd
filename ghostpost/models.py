@@ -14,7 +14,7 @@ class ghostPost(models.Model):
 
     def __str__(self):
         return self.message
-
+# This is JT's code I got with his permission
     def save(self, *args, **kwargs):
         is_unique = False
         while not is_unique:
